@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:id="@+id/date_view"
+        android:padding="@dimen/activity_horizontal_margin"
+        tools:text = "30/06/2017"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/title_view"
+            android:textSize="@dimen/section"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            tools:text="German lawmakers vote to legalize same-sex marriage"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/section_view"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/section"
+            tools:text="World News"/>
+    </LinearLayout>
+
+</LinearLayout>

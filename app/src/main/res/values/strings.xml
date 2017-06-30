@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">News Application</string>
+
+    <!-- Settings Menu Item [CHAR LIMIT=NONE] -->
+    <string name="settings_menu_item">Settings</string>
+    <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
+    <string name="settings_title">Topic Settings</string>
+    <string name="no_inet">No internet</string>
+
+    <string name="default_topic">Topic of the news</string>
+    <string name="default_topic_key" translatable="false">topic</string>
+    <string name="settings_topic_default" translatable="false">Germany</string>
+    <string name="no_news">No News</string>
+</resources>
