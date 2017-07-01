@@ -6,7 +6,6 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -21,6 +20,8 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
+
+            //binding preferences
             Preference topic = findPreference(getString(R.string.default_topic_key));
             bindPreferenceSummaryToValue(topic);
         }
@@ -29,8 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
             preference.setSummary(stringValue);
-
-            Log.v("Pref, changed", "yes");
 
             return true;
         }

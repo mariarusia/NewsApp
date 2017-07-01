@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,13 +42,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Log.v("I have restarted", "restarted");
-
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mQuery = sharedPrefs.getString(
-                getString(R.string.default_topic_key),
-                getString(R.string.default_topic));
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
         connMgr = (ConnectivityManager)
@@ -83,29 +75,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             getLoaderManager().initLoader(0, null, this);
             mAdapter.clear();
 
-            //Hide the "No books message" during the request
+            //Hide the "No News message" during the request
             textView.setVisibility(GONE);
 
             //show the spinner
             loadingIndicator = findViewById(R.id.loading_spinner);
             loadingIndicator.setVisibility(View.VISIBLE);
-
-            //start fetching
-            //getLoaderManager().restartLoader(BOOKS_LOADER_ID, null, MainActivity.this);
         } else {
             // Otherwise, display error
             // Update empty state with no connection error message
             mAdapter.clear();
-            textView.setText("No Internet");
-            //textView.setVisibility(View.VISIBLE);
+            textView.setText(R.string.no_inet);
         }
 
+        //set an OnClick Listener to the list items, that would open an Internet page
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
+                //if suddenly the internet is gone
                 if (networkInfo != null && networkInfo.isConnected()) {
                     // Find the current newsItem that was clicked on
                     News currentNews = mAdapter.getItem(position);
@@ -127,38 +117,35 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
     }
 
+    //restart a loader after the preferences were changed
     @Override
     public void onResume() {
-        Log.v("Resuming", "yes");
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mQuery = sharedPrefs.getString(
-                getString(R.string.default_topic_key),
-                getString(R.string.default_topic));
-
-        mAdapter.clear();
-        getLoaderManager().restartLoader(NEWS_LOADER_ID, null, MainActivity.this);
-
-        Log.v("afterResume", mQuery);
         super.onResume();
 
-        }
-        /*networkInfo = connMgr.getActiveNetworkInfo();
+        networkInfo = connMgr.getActiveNetworkInfo();
+
         if (networkInfo != null && networkInfo.isConnected()) {
-            //getLoaderManager().destroyLoader(BOOKS_LOADER_ID);
+            //restart Loader
             getLoaderManager().restartLoader(NEWS_LOADER_ID, null, MainActivity.this);
-            //getLoaderManager().initLoader(0, null, this);
         } else {
             // Otherwise, display error
             // Update empty state with no connection error message
             textView.setText(R.string.no_inet);
         }
     }
-    */
+
     //overriding the Loader methods
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
-        // Create a new loader for the given URL
+
+        //take the query from preferences
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mQuery = sharedPrefs.getString(
+                getString(R.string.default_topic_key),
+                getString(R.string.default_topic));
+
+
         return new NewsLoader(this, mQuery);
     }
 
@@ -185,42 +172,34 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<List<News>> loader) {
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
-
-        /*SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mQuery = sharedPrefs.getString(
-                getString(R.string.default_topic_key),
-                getString(R.string.default_topic));*/
     }
 
     //restoring the values and starting the search
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
 
+        //get the query from the preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mQuery = sharedPrefs.getString(
                 getString(R.string.default_topic_key),
                 getString(R.string.default_topic));
 
-        Log.v("restarted, Ive put", mQuery);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
+        //check the internet connection
         if (networkInfo != null && networkInfo.isConnected()) {
-            if (mQuery.length() > 0) {
-                //hide the No books message which appears
-                //textView.setVisibility(GONE);
+            if (mQuery.trim().length() > 0) {
                 getLoaderManager().restartLoader(NEWS_LOADER_ID, null, MainActivity.this);
             } else {
+                //set the default query
                 mQuery = "Germany";
             }
-            //editText.setText(mQuery);
         } else {
-            // Otherwise, display error
-            // Update empty state with no connection error message
-            //editText.setText(mQuery);
             textView.setText(R.string.no_inet);
         }
     }
 
+    //show menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

@@ -2,7 +2,6 @@ package com.example.android.newsapp;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.util.Log;
 
 import java.util.List;
 
@@ -24,7 +23,8 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
      * Query
      */
 
-    private String testQuery = "germany";
+    //default query if nothing was chosen
+    private String defaultQuery = "germany";
 
     private String mQuery;
 
@@ -50,12 +50,11 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
     @Override
     public List<News> loadInBackground() {
 
+        //if nothing is in preferences, start loading the default query
         if (mQuery == null | mQuery.trim().length() == 0) {
-            Log.v("the query is", "null");
-            return QueryUtils.fetchNewsData(testQuery);
+            return QueryUtils.fetchNewsData(defaultQuery);
         }
-        // Perform the network request, parse the response, and extract a list of books.
-        Log.v("the query in loader", mQuery);
+        //else, proceed with the query
         List<News> news = QueryUtils.fetchNewsData(mQuery);
         return news;
     }

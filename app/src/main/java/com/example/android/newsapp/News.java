@@ -12,7 +12,7 @@ public class News {
     private String mUrl;
 
     //constructor. create News object with date, title and section
-    public News(String title, String date, String section, String url){
+    public News(String title, String date, String section, String url) {
         mTitle = title;
         mDate = date;
         mSection = section;

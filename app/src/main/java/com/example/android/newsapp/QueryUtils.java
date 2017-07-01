@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Created by maria on 30.06.2017.
- *
+ * <p>
  * The class to parse the query, fo the request and so on.
  */
 
@@ -205,7 +205,7 @@ public final class QueryUtils {
                 JSONObject response = baseJsonResponse.getJSONObject("response");
 
                 //check if the "results" array exists
-                if (response.has("results")){
+                if (response.has("results")) {
 
                     JSONArray results = response.getJSONArray("results");
 
@@ -240,7 +240,7 @@ public final class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the books JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the news JSON results", e);
         }
 
         // Return the list of books
