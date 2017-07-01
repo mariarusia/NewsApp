@@ -50,7 +50,7 @@ public final class QueryUtils {
     static List<News> fetchNewsData(String query) {
 
         //if nothing is chosen, return the default
-        if (query.trim().length() == 0) {
+        if (query.isEmpty()) {
             //Log.v("query null", query);
             return extractFeatureFromJson(default_uri);
         } else {
@@ -67,9 +67,9 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Problem making the HTTP request.", e);
             }
 
-            // Extract relevant fields from the JSON response and create a list of {@link books}s
+            // Extract relevant fields from the JSON response and create a list of {@link News}s
 
-            // Return the list of {@link Earthquake}s
+            // Return the list of {@link News}s
             return extractFeatureFromJson(jsonResponse);
         }
     }
@@ -79,7 +79,7 @@ public final class QueryUtils {
 
         String result_uri;
 
-        if (query.trim().length() == 0)
+        if (query.isEmpty())
             result_uri = default_uri;
         else {
             result_uri = base_url.concat(query).concat(adding_part);
@@ -131,7 +131,7 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the news JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -227,10 +227,10 @@ public final class QueryUtils {
                         //get url
                         String url = currentNews.getString("webUrl");
 
-                        // Create a new {@link Books object from the JSON response.
+                        // Create a new {@link News object from the JSON response.
                         News newsItem = new News(title, date, section, url);
 
-                        // Add the new {@link Earthquake} to the list of earthquakes.
+                        // Add the new {@link News} to the list of news.
                         news.add(newsItem);
                     }
                 }
@@ -243,7 +243,7 @@ public final class QueryUtils {
             Log.e("QueryUtils", "Problem parsing the news JSON results", e);
         }
 
-        // Return the list of books
+        // Return the list of news
         return news;
     }
 

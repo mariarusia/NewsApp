@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Find a reference to the {@link ListView} in the layout
         ListView newsListView = (ListView) findViewById(R.id.list);
-        //set empty view if there are no books found
+        //set empty view if there is no news found
         textView = (TextView) findViewById(R.id.empty);
         newsListView.setEmptyView(textView);
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             // Prepare the loader.  Either re-connect with an existing one,
             // or start a new one.
-            getLoaderManager().initLoader(0, null, this);
+            getLoaderManager().initLoader(NEWS_LOADER_ID, null, this);
             mAdapter.clear();
 
             //Hide the "No News message" during the request
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     // Convert the String URL into a URI object (to pass into the Intent constructor)
                     Uri newsUri = Uri.parse(currentNews.getUrl());
 
-                    // Create a new intent to view the earthquake URI
+                    // Create a new intent to view the News URI
                     Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
 
                     // Send the intent to launch a new activity
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         progressBar.setVisibility(GONE);
         textView.setVisibility(View.VISIBLE);
 
-        // Clear the adapter of previous earthquake data
+        // Clear the adapter of previous news data
         mAdapter.clear();
 
         // If there is a valid list of {@link News}s, then add them to the adapter's
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //check the internet connection
         if (networkInfo != null && networkInfo.isConnected()) {
-            if (mQuery.trim().length() > 0) {
+            if (!mQuery.isEmpty()) {
                 getLoaderManager().restartLoader(NEWS_LOADER_ID, null, MainActivity.this);
             } else {
                 //set the default query

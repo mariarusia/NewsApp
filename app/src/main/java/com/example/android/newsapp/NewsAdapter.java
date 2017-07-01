@@ -26,7 +26,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
     }
 
     /**
-     * Returns a list item view that displays information about the book
+     * Returns a list item view that displays information about news article
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

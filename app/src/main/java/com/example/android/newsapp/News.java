@@ -6,10 +6,10 @@ package com.example.android.newsapp;
 
 public class News {
 
-    private String mDate;
-    private String mTitle;
-    private String mSection;
-    private String mUrl;
+    private final String mDate;
+    private final String mTitle;
+    private final String mSection;
+    private final String mUrl;
 
     //constructor. create News object with date, title and section
     public News(String title, String date, String section, String url) {
