@@ -42,11 +42,11 @@ public class NewsAdapter extends ArrayAdapter<News> {
         News currentNews = getItem(position);
 
         // Find the TextView with view ID title
-        TextView titleView = (TextView) listItemView.findViewById(R.id.title_view);
+        TextView titleView = (TextView) listItemView.findViewById(R.id.textview_title);
         // Display title
         titleView.setText(currentNews.getTitle());
 
-        TextView dateView = (TextView) listItemView.findViewById(R.id.date_view);
+        TextView dateView = (TextView) listItemView.findViewById(R.id.textview_date);
 
         String full_date = currentNews.getDate();
         String[] parts = full_date.split("T");
@@ -54,7 +54,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
         // Display the date
         dateView.setText(parts[0]);
 
-        TextView sectionView = (TextView) listItemView.findViewById(R.id.section_view);
+        TextView sectionView = (TextView) listItemView.findViewById(R.id.textview_section);
         // Display the secttion
         sectionView.setText(currentNews.getSection());
 

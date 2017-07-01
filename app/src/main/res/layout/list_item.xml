@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/date_view"
+        android:id="@+id/textview_date"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/title_view"
+            android:id="@+id/textview_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
@@ -28,7 +28,7 @@
             tools:text="German lawmakers vote to legalize same-sex marriage" />
 
         <TextView
-            android:id="@+id/section_view"
+            android:id="@+id/textview_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
