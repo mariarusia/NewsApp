@@ -164,7 +164,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);
         } else {
-            textView.setText(R.string.no_news);
+            if (networkInfo != null && networkInfo.isConnected()) {
+                textView.setText(R.string.no_news);
+            } else {
+                // Otherwise, display error
+                // Update empty state with no connection error message
+                textView.setText(R.string.no_inet);
+            }
         }
     }
 

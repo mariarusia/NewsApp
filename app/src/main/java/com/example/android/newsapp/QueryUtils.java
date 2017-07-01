@@ -45,7 +45,7 @@ public final class QueryUtils {
     }
 
     /**
-     * Query the USGS dataset and return a list of {@link News} objects.
+     * Query the Guardian dataset and return a list of {@link News} objects.
      */
     static List<News> fetchNewsData(String query) {
 
@@ -112,15 +112,6 @@ public final class QueryUtils {
 
             // Handle redirect (response code 301)
             int httpResponse = urlConnection.getResponseCode();
-            if (httpResponse == 301) {
-                // Get redirect url from "location" header field
-                String newUrl = urlConnection.getHeaderField("Location");
-
-                // Open the new connection again
-                urlConnection = (HttpURLConnection) new URL(newUrl).openConnection();
-
-                Log.e(LOG_TAG, "Redirect to URL : " + newUrl);
-            }
 
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
@@ -246,6 +237,5 @@ public final class QueryUtils {
         // Return the list of news
         return news;
     }
-
 
 }
